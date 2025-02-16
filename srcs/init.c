@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/16 16:51:36 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/16 19:51:19 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,43 @@ static int	ft_init_input(int argc, char **argv, t_data *data)
 		|| data->time_to_eat == 0 || data->time_to_sleep == 0)
 		|| (argc == 6 && data->nb_of_meals == 0))
 	{	
-		printf("wrong imput");
+		printf("wrong input");
 		return (0);
 	}
 	data->start_time = tv.tv_sec * 1000LL + tv.tv_usec / 1000;
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+		return (0);
 	return (1);
 }
 
-int	ft_parsing(int argc, char **argv, t_data *data)
+static int	ft_init_philos(t_data *data, t_philo **philos)
+{
+	size_t	i;
+
+	i = 0;
+	*philos = malloc(sizeof(t_philo) * data->nb_of_philo);
+	if (!*philos)
+	{
+		printf("philos malloc failed\n");
+		return (0);
+	}
+	while (i < data->nb_of_philo)
+	{
+		memset(&(*philos)[i], 0, sizeof(t_philo));
+		(*philos)[i].id = i;
+		(*philos)[i].last_meal = data->start_time;
+		if (pthread_mutex_init(&(*philos)[i].left_fork, NULL) != 0)
+			return (ft_free(data, *philos));
+		(*philos)[i].lf_mutex_initialized = 1;
+		if	(pthread_mutex_init(&(*philos)[i].right_fork, NULL) != 0)
+			return (ft_free(data, *philos));
+		(*philos)[i].rf_mutex_initialized = 1;
+			i++;
+	}
+	return (1);
+}
+
+int	ft_init(int argc, char **argv, t_data *data, t_philo **philos)
 {
 	size_t	i;
 
@@ -92,6 +121,11 @@ int	ft_parsing(int argc, char **argv, t_data *data)
 		i++;
 	}
 	if (!ft_init_input(argc, argv, data))
+		return (0);
+	data->print_mutex_initialized = 1;
+	if (!ft_init_philos(data, philos))
+		return (0);
+	if (!init_mutex_tab(data, *philos))
 		return (0);
 	return (1);
 }

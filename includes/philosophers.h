@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/16 16:35:53 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/16 19:54:17 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_data
 	bool			flag_stop;
 	long long		start_time;
 	pthread_mutex_t	print_mutex;
+	bool			print_mutex_initialized;
 	pthread_mutex_t	*fork_mutex;
 }	t_data;
 
@@ -42,9 +43,13 @@ typedef struct s_philo
 	t_data			data;
 	pthread_t		thread;
 	pthread_mutex_t	left_fork;
+	bool			lf_mutex_initialized;
 	pthread_mutex_t	right_fork;
+	bool			rf_mutex_initialized;
 }	t_philo;
 
-int	ft_parsing(int argc, char **argv, t_data *input);
+int	ft_free(t_data *data, t_philo *philos);
+int	init_mutex_tab(t_data *data, t_philo *philos);
+int	ft_init(int argc, char **argv, t_data *input, t_philo **philos);
 
 #endif
