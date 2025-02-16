@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/14 17:13:18 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/16 16:51:36 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static int	check_syntax(char *str)
 
 	i = 0;
 	if (str[i] == '+')
-		i++;
+	{
+		if (!str[i + 1])
+			return (0);
+		i++;	
+	}
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -47,36 +51,47 @@ static int	ft_atoi_p(char *str)
 	return ((int)nb);
 }
 
-static int	ft_init_input(int argc, char **argv, t_input *input)
+static int	ft_init_input(int argc, char **argv, t_data *data)
 {
-	input->nb_of_philo = ft_atoi_p(argv[1]);
-	input->time_to_die = ft_atoi_p(argv[2]);
-	input->time_to_eat = ft_atoi_p(argv[3]);
-	input->time_to_sleep = ft_atoi_p(argv[4]);
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
+	{	
+		printf("gettimeofday failed\n");
+		return (0);
+	}
+	memset(data, 0, sizeof(t_data));
+	data->nb_of_philo = ft_atoi_p(argv[1]);
+	data->time_to_die = ft_atoi_p(argv[2]);
+	data->time_to_eat = ft_atoi_p(argv[3]);
+	data->time_to_sleep = ft_atoi_p(argv[4]);
 	if (argc == 6)
-		input->nb_of_meals = ft_atoi_p(argv[5]);
-	if (input->nb_of_philo == 0 || input->time_to_die == 0
-		|| input->time_to_eat == 0 || input->time_to_sleep == 0)
+		data->nb_of_meals = ft_atoi_p(argv[5]);
+	if ((data->nb_of_philo == 0 || data->time_to_die == 0
+		|| data->time_to_eat == 0 || data->time_to_sleep == 0)
+		|| (argc == 6 && data->nb_of_meals == 0))
+	{	
+		printf("wrong imput");
 		return (0);
-	if (argc == 6 && input->nb_of_meals == 0)
-		return (0);
+	}
+	data->start_time = tv.tv_sec * 1000LL + tv.tv_usec / 1000;
 	return (1);
 }
 
-int	ft_parsing(int argc, char **argv, t_input *input)
+int	ft_parsing(int argc, char **argv, t_data *data)
 {
 	size_t	i;
 
 	i = 1;
 	if (argc != 5 && argc != 6)
 		return (0);
-	while (argv[i])
+	while (i < (size_t) argc)
 	{
 		if (!check_syntax(argv[i]))
 			return (0);
 		i++;
 	}
-	if (!ft_init_input(argc, argv, input))
+	if (!ft_init_input(argc, argv, data))
 		return (0);
 	return (1);
 }
