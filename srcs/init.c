@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/17 18:44:20 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/17 19:59:05 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ static int	ft_init_philos(t_data *data, t_philo **philos)
 		(*philos)[i].id = i;
 		(*philos)[i].data = data;
 		(*philos)[i].last_meal = data->start_time;
-		(*philos)[i].left_fork = &data->fork_mutex[i];
-		(*philos)[i].right_fork = &data->fork_mutex[(i + 1) % data->nb_of_philo];
+		(*philos)[i].right_fork = &data->fork_mutex[i];
+		(*philos)[i].left_fork = &data->fork_mutex[(i + 1) % data->nb_of_philo];
 		if (pthread_mutex_init(&(*philos)[i].mutex_meals, NULL) != 0)
 		{
 			ft_free_data(data);

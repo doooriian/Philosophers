@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/17 18:35:13 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/17 19:54:47 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 	long long		last_meal;
 	t_data			*data;
 	pthread_t		thread;
-	pthread_mutex_t		mutex_meals;
+	pthread_mutex_t	mutex_meals;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 }	t_philo;
