@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/17 18:36:40 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:44:20 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	ft_init_philos(t_data *data, t_philo **philos)
 		printf("philos malloc failed\n");
 		return (0);
 	}
-	while (i < data->nb_of_philo)
+	while (i < (size_t)data->nb_of_philo)
 	{
 		memset(&(*philos)[i], 0, sizeof(t_philo));
 		(*philos)[i].id = i;
