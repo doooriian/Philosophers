@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/16 19:54:17 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:02:25 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,14 @@ typedef struct s_philo
 	int				id;
 	int				meals_eaten;
 	long long		last_meal;
-	t_data			data;
+	t_data			*data;
 	pthread_t		thread;
-	pthread_mutex_t	left_fork;
-	bool			lf_mutex_initialized;
-	pthread_mutex_t	right_fork;
-	bool			rf_mutex_initialized;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 }	t_philo;
 
-int	ft_free(t_data *data, t_philo *philos);
-int	init_mutex_tab(t_data *data, t_philo *philos);
+int	ft_free(t_data *data);
+int	init_mutex_tab(t_data *data);
 int	ft_init(int argc, char **argv, t_data *input, t_philo **philos);
 
 #endif
