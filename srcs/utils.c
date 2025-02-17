@@ -6,13 +6,13 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:56:14 by doley             #+#    #+#             */
-/*   Updated: 2025/02/17 18:00:07 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/17 18:39:58 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	ft_free(t_data *data)
+int	ft_free_data(t_data *data)
 {
 	size_t	i;
 
@@ -21,6 +21,21 @@ int	ft_free(t_data *data)
 		pthread_mutex_destroy(&data->print_mutex);
 	if (data->fork_mutex)
 		free(data->fork_mutex);
+	return (0);
+}
+
+int	ft_free_philos(t_philo **philos, size_t index)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < index)
+	{
+		pthread_mutex_destroy(&(*philos)[i].mutex_meals);
+		i++;
+	}
+	free(*philos);
+	*philos = NULL;
 	return (0);
 }
 
@@ -45,7 +60,7 @@ int	init_mutex_tab(t_data *data)
 				pthread_mutex_destroy(&data->fork_mutex[i]);
 				i--;
 			}
-			return (ft_free(data));
+			return (ft_free_data(data));
 		}
 		i++;
 	}
