@@ -6,50 +6,11 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/18 16:24:17 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/18 18:00:08 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-static int	check_syntax(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if (str[i] == '+')
-	{
-		if (!str[i + 1])
-			return (0);
-		i++;
-	}
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static int	ft_atoi_p(char *str)
-{
-	size_t		i;
-	long long	nb;
-
-	i = 0;
-	nb = 0;
-	if (str[i] == '+')
-		i++;
-	while (str[i])
-	{
-		nb = nb * 10 + str[i] - '0';
-		i++;
-		if (nb > 2147483647)
-			return (0);
-	}
-	return ((int)nb);
-}
 
 static int	ft_init_input(int argc, char **argv, t_data *data)
 {
@@ -98,7 +59,7 @@ static int	ft_init_philos(t_data *data, t_philo **philos)
 		(*philos)[i].last_meal = data->start_time;
 		(*philos)[i].right_fork = &data->fork_mutex[i];
 		(*philos)[i].left_fork = &data->fork_mutex[(i + 1) % data->nb_of_philo];
-		if (pthread_mutex_init(&(*philos)[i].mutex_meals, NULL) != 0)
+		if (pthread_mutex_init(&(*philos)[i].mutex_meals, NULL))
 		{
 			ft_free_data(data, 1);
 			return(ft_free_philos(philos, i));
@@ -106,6 +67,49 @@ static int	ft_init_philos(t_data *data, t_philo **philos)
 		i++;
 	}
 	return (1);
+}
+
+static int	init_mutex_tab(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
+	if (!data->fork_mutex)
+	{
+		printf("fork_mutex malloc failed\n");
+		return (0);
+	}
+	while (i < data->nb_of_philo)
+	{
+		if (pthread_mutex_init(&data->fork_mutex[i], NULL))
+		{
+			while (--i >= 0)
+			{
+				pthread_mutex_destroy(&data->fork_mutex[i]);
+			}
+			free(data->fork_mutex);
+			data->fork_mutex = NULL;
+			return (ft_free_data(data, 1));
+		}
+		i++;
+	}
+	return (1);
+}
+
+static int	ft_init_threads(t_data *data, t_philo **philos)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < (size_t)data->nb_of_philo)
+	{
+		if (pthread_create(&(*philos)[i].thread, NULL, &routine, &(*philos)[i]))
+		{
+			ft_free_philos(philos, (size_t)data->nb_of_philo);
+			ft_free_data(data, 1);
+		}
+	}
 }
 
 int	ft_init(int argc, char **argv, t_data *data, t_philo **philos)
@@ -123,7 +127,7 @@ int	ft_init(int argc, char **argv, t_data *data, t_philo **philos)
 	}
 	if (!ft_init_input(argc, argv, data))
 		return (0);
-	if (pthread_mutex_init(&data->flag_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->flag_mutex, NULL))
 		return (ft_free_data(data, 0));
 	if (!init_mutex_tab(data))
 		return (0);

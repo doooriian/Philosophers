@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/18 16:21:26 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/18 19:29:32 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 }	t_philo;
 
-int	ft_free_data(t_data *data, bool destroy_flag);
-int	ft_free_philos(t_philo **philos, size_t index);
-int	init_mutex_tab(t_data *data);
-int	ft_init(int argc, char **argv, t_data *input, t_philo **philos);
+void	*routine(void *arg);
+int		check_syntax(char *str);
+int		ft_atoi_p(char *str);
+int		ft_free_data(t_data *data, bool destroy_flag);
+int		ft_free_philos(t_philo **philos, size_t index);
+int		ft_init(int argc, char **argv, t_data *input, t_philo **philos);
 
 #endif

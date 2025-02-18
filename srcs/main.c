@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:24:40 by doley             #+#    #+#             */
-/*   Updated: 2025/02/18 15:59:06 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/18 17:38:05 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv)
 	memset(&data, 0, sizeof(t_data));
 	if (!ft_init(argc, argv, &data, &philos))
 		return (1);
+	
 	ft_print_data(data);
 	ft_print_philos(philos, data.nb_of_philo);
 }

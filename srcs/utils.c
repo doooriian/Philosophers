@@ -6,11 +6,50 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:56:14 by doley             #+#    #+#             */
-/*   Updated: 2025/02/18 16:44:25 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/18 17:57:13 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+int	check_syntax(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (str[i] == '+')
+	{
+		if (!str[i + 1])
+			return (0);
+		i++;
+	}
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_atoi_p(char *str)
+{
+	size_t		i;
+	long long	nb;
+
+	i = 0;
+	nb = 0;
+	if (str[i] == '+')
+		i++;
+	while (str[i])
+	{
+		nb = nb * 10 + str[i] - '0';
+		i++;
+		if (nb > 2147483647)
+			return (0);
+	}
+	return ((int)nb);
+}
 
 int	ft_free_data(t_data *data, bool destroy_flag)
 {
@@ -45,32 +84,4 @@ int	ft_free_philos(t_philo **philos, size_t index)
 	free(*philos);
 	*philos = NULL;
 	return (0);
-}
-
-int	init_mutex_tab(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
-	if (!data->fork_mutex)
-	{
-		printf("fork_mutex malloc failed\n");
-		return (0);
-	}
-	while (i < data->nb_of_philo)
-	{
-		if (pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
-		{
-			while (--i >= 0)
-			{
-				pthread_mutex_destroy(&data->fork_mutex[i]);
-			}
-			free(data->fork_mutex);
-			data->fork_mutex = NULL;
-			return (ft_free_data(data, 1));
-		}
-		i++;
-	}
-	return (1);
 }
