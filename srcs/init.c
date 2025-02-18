@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/17 19:59:05 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/18 16:24:17 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static int	ft_init_input(int argc, char **argv, t_data *data)
 	data->start_time = tv.tv_sec * 1000LL + tv.tv_usec / 1000;
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (0);
-	data->print_mutex_initialized = 1;
 	return (1);
 }
 
@@ -101,7 +100,7 @@ static int	ft_init_philos(t_data *data, t_philo **philos)
 		(*philos)[i].left_fork = &data->fork_mutex[(i + 1) % data->nb_of_philo];
 		if (pthread_mutex_init(&(*philos)[i].mutex_meals, NULL) != 0)
 		{
-			ft_free_data(data);
+			ft_free_data(data, 1);
 			return(ft_free_philos(philos, i));
 		}
 		i++;
@@ -124,6 +123,8 @@ int	ft_init(int argc, char **argv, t_data *data, t_philo **philos)
 	}
 	if (!ft_init_input(argc, argv, data))
 		return (0);
+	if (pthread_mutex_init(&data->flag_mutex, NULL) != 0)
+		return (ft_free_data(data, 0));
 	if (!init_mutex_tab(data))
 		return (0);
 	if (!ft_init_philos(data, philos))

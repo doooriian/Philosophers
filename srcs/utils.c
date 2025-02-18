@@ -6,21 +6,29 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:56:14 by doley             #+#    #+#             */
-/*   Updated: 2025/02/17 18:39:58 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/18 16:44:25 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	ft_free_data(t_data *data)
+int	ft_free_data(t_data *data, bool destroy_flag)
 {
 	size_t	i;
 
 	i = 0;
-	if (data->print_mutex_initialized)
-		pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
 	if (data->fork_mutex)
+	{
+		while (i < (size_t)data->nb_of_philo)
+		{
+			pthread_mutex_destroy(&data->fork_mutex[i]);
+			i++;
+		}
 		free(data->fork_mutex);
+	}
+	if (destroy_flag)
+		pthread_mutex_destroy(&data->flag_mutex);
 	return (0);
 }
 
@@ -54,13 +62,13 @@ int	init_mutex_tab(t_data *data)
 	{
 		if (pthread_mutex_init(&data->fork_mutex[i], NULL) != 0)
 		{
-			i--;
-			while (i >= 0)
+			while (--i >= 0)
 			{
 				pthread_mutex_destroy(&data->fork_mutex[i]);
-				i--;
 			}
-			return (ft_free_data(data));
+			free(data->fork_mutex);
+			data->fork_mutex = NULL;
+			return (ft_free_data(data, 1));
 		}
 		i++;
 	}
