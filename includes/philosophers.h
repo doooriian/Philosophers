@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/18 19:29:32 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/19 16:07:05 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 	int				nb_of_meals;
 	long long		start_time;
 	bool			flag_stop;
+	bool			flag_start;
 	pthread_mutex_t	flag_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*fork_mutex;
@@ -47,11 +48,12 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 }	t_philo;
 
-void	*routine(void *arg);
-int		check_syntax(char *str);
-int		ft_atoi_p(char *str);
-int		ft_free_data(t_data *data, bool destroy_flag);
-int		ft_free_philos(t_philo **philos, size_t index);
-int		ft_init(int argc, char **argv, t_data *input, t_philo **philos);
+long long	get_time(void);
+void		*routine(void *arg);
+int			check_syntax(char *str);
+int			ft_atoi_p(char *str);
+int			ft_free_data(t_data *data, bool destroy_flag);
+int			ft_free_philos(t_philo **philos, size_t index);
+int			ft_init(int argc, char **argv, t_data *input, t_philo **philos);
 
 #endif
