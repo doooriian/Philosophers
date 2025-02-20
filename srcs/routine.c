@@ -6,16 +6,16 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:50:07 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 17:05:31 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/20 19:51:01 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	check_flags(t_philo *philo)
+int check_flags(t_philo *philo)
 {
-	bool	local_flag_stop;
-	bool	local_flag_start;
+	bool local_flag_stop;
+	bool local_flag_start;
 
 	local_flag_stop = 0;
 	local_flag_start = 0;
@@ -32,24 +32,32 @@ int	check_flags(t_philo *philo)
 	return (1);
 }
 
-void	print_messages(t_philo *philo, char *message)
+void print_messages(t_philo *philo, char *message)
 {
-	long long	time;
+	static bool		dead = 0;
+	long long 	time;
 
+	if (dead)
+		return ;
 	time = get_time() - philo->data->start_time;
 	if (time == -1)
 	{
 		pthread_mutex_lock(&philo->data->flag_mutex);
 		philo->data->flag_stop = 1;
 		pthread_mutex_unlock(&philo->data->flag_mutex);
+		return ;
 	}
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d %s", time, philo->id, message);
+	if (strncmp("is dead", message, 7) == 0)
+		dead = 1;
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
-int	enough_eaten(t_philo *philo)
+int enough_eaten(t_philo *philo)
 {
+	if (philo->data->nb_of_meals == 0)
+		return (0);
 	pthread_mutex_lock(&philo->mutex_meals);
 	if (philo->meals_eaten < philo->data->nb_of_meals)
 	{
@@ -60,25 +68,26 @@ int	enough_eaten(t_philo *philo)
 	return (1);
 }
 
-void	*routine(void *arg)
+void *routine(void *arg)
 {
-	t_philo	*philo;
+	t_philo *philo;
 
 	philo = (t_philo *)arg;
 	if (!check_flags(philo))
 		return (NULL);
+	if (philo->id % 2)
+		usleep(500);
 	while (1)
 	{
 		if (!ft_eat(philo))
-			break ;
+			break;
 		if (!ft_sleep(philo))
-			break ;
+			break;
 		print_messages(philo, "is thinking\n");
+		if (philo->data->nb_of_philo % 2 && ((2 * philo->data->time_to_eat - philo->data->time_to_sleep) > 0))
+			usleep((2 * philo->data->time_to_eat - philo->data->time_to_sleep) * 0.8 * 1000);
 		if (enough_eaten(philo))
-		{
-			// printf("fini de mange : %d\n", philo->id);
-			break ;
-		}
+			break;
 		usleep(100);
 	}
 	return (NULL);

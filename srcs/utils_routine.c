@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:26:32 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 16:34:59 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/20 19:47:37 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int	take_forks(t_philo *philo)
 
 int	ft_eat(t_philo *philo)
 {
+	if (!check_flags(philo))
+		return (0);
 	if (!take_forks(philo))
 		return (0);
-    print_messages(philo, "is eating\n");
+	print_messages(philo, "is eating\n");
     if (!ft_usleep(philo->data->time_to_eat, philo->data))
 	{
 		pthread_mutex_unlock(philo->left_fork);
