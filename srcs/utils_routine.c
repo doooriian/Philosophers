@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:26:32 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 16:08:09 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/20 16:34:59 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ int	take_forks(t_philo *philo)
 		print_messages(philo, "has taken a fork\n");
 	}
 	else
+	{
 		if (!safe_lock(philo, philo->right_fork))
 			return (0);
 		print_messages(philo, "has taken a fork\n");
 		if (!safe_lock(philo, philo->left_fork))
 			return (0);
 		print_messages(philo, "has taken a fork\n");
+	}
 	return (1);
 }
 

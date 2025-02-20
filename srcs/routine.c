@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:50:07 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 16:07:42 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/20 17:05:31 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ int	enough_eaten(t_philo *philo)
 	if (philo->meals_eaten < philo->data->nb_of_meals)
 	{
 		pthread_mutex_unlock(&philo->mutex_meals);
-		return (1);
+		return (0);
 	}
 	pthread_mutex_unlock(&philo->mutex_meals);
-	return (0);
+	return (1);
 }
 
 void	*routine(void *arg)
@@ -70,11 +70,16 @@ void	*routine(void *arg)
 	while (1)
 	{
 		if (!ft_eat(philo))
-			return (NULL);
+			break ;
 		if (!ft_sleep(philo))
-			return (NULL);
+			break ;
 		print_messages(philo, "is thinking\n");
-		if (!enough_eaten(philo))
-			return (NULL);
+		if (enough_eaten(philo))
+		{
+			// printf("fini de mange : %d\n", philo->id);
+			break ;
+		}
+		usleep(100);
 	}
+	return (NULL);
 }

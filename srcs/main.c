@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:24:40 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 16:15:39 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/20 17:01:11 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,50 @@ bool	is_dead(t_philo philo)
 	return (0);
 }
 
-void	ft_monitor(t_philo *philos)
-{
-	size_t	i;
-	bool 	local_stop;
+// int	check_everybody_ate(t_philo *philos)
+// {
+// 	size_t	i;
 
-	i = 0;
-	pthread_mutex_lock(&philos->data->flag_mutex);
-	local_stop = philos->data->flag_stop;
-	pthread_mutex_unlock(&philos->data->flag_mutex);
-	while (!local_stop)
-	{
-		i = 0;
-		usleep(10);
-		while (i < (size_t)philos->data->nb_of_philo)
-		{
-			if (is_dead(philos[i]))
-			{
-				pthread_mutex_lock(&philos->data->flag_mutex);
-				print_messages(&philos[i], "is dead\n");
-				philos->data->flag_stop = 1;
-				pthread_mutex_unlock(&philos->data->flag_mutex);
-				return ;
-			}
-			i++;
-		}
-	}
-}
+// 	i = 0;
+// 	while (i < (size_t)philos->data->nb_of_philo)
+// 	{
+// 		pthread_mutex_lock(&philos[i].mutex_meals);
+// 		if (philos[i].meals_eaten < philos->data->nb_of_meals)
+// 			return (0);
+// 		pthread_mutex_unlock(&philos[i].mutex_meals);
+// 		i++;
+// 	}
+// 	return (1);
+// }
+
+// void	ft_monitor(t_philo *philos)
+// {
+// 	size_t	i;
+// 	bool 	local_stop;
+
+// 	i = 0;
+// 	pthread_mutex_lock(&philos->data->flag_mutex);
+// 	local_stop = philos->data->flag_stop;
+// 	pthread_mutex_unlock(&philos->data->flag_mutex);
+// 	while (!local_stop)
+// 	{
+// 		i = 0;
+// 		usleep(10);
+// 		while (i < (size_t)philos->data->nb_of_philo)
+// 		{
+// 			if (is_dead(philos[i]))
+// 			{
+// 				pthread_mutex_lock(&philos->data->flag_mutex);
+// 				print_messages(&philos[i], "is dead\n");
+// 				philos->data->flag_stop = 1;
+// 				pthread_mutex_unlock(&philos->data->flag_mutex);
+// 				printf("test");
+// 				return ;
+// 			}
+// 			i++;
+// 		}
+// 	}
+// }
 
 void	ft_join_all(t_philo *philos)
 {
@@ -108,7 +125,7 @@ int	main(int argc, char **argv)
 	memset(&data, 0, sizeof(t_data));
 	if (!ft_init(argc, argv, &data, &philos))
 		return (1);
-	ft_monitor(philos);
+	// ft_monitor(philos);
 	ft_join_all(philos);
 	// ft_print_data(data);
 	// ft_print_philos(philos, data.nb_of_philo);
