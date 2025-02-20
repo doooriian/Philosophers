@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/19 16:07:05 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/20 16:08:29 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,13 @@ typedef struct s_philo
 
 long long	get_time(void);
 void		*routine(void *arg);
-int			check_syntax(char *str);
 int			ft_atoi_p(char *str);
+int			ft_eat(t_philo *philo);
+int			check_syntax(char *str);
+int			ft_sleep(t_philo *philo);
+int			take_forks(t_philo	*philos);
+int			ft_usleep(int sleeping_time, t_data *data);
+void		print_messages(t_philo *philo, char *message);
 int			ft_free_data(t_data *data, bool destroy_flag);
 int			ft_free_philos(t_philo **philos, size_t index);
 int			ft_init(int argc, char **argv, t_data *input, t_philo **philos);
