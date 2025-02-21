@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 14:58:59 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:14:01 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,13 @@ int	ft_init(int argc, char **argv, t_data *data, t_philo **philos)
 	size_t	i;
 
 	i = 1;
-	if (argc != 5 && argc != 6)
-		return (0);
 	while (i < (size_t) argc)
 	{
 		if (!check_syntax(argv[i]))
+		{
+			printf("wrong input\n");
 			return (0);
+		}
 		i++;
 	}
 	if (!ft_init_input(argc, argv, data))

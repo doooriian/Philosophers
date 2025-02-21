@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:24:40 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 14:58:02 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:13:32 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int main(int argc, char **argv)
 	t_data data;
 	t_philo *philos;
 
+	if (argc != 5 && argc != 6)
+	{
+		printf("wrong input\n");
+		return (0);
+	}
 	philos = NULL;
 	memset(&data, 0, sizeof(t_data));
 	if (!ft_init(argc, argv, &data, &philos))
