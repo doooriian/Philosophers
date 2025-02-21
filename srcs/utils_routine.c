@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:26:32 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 19:47:37 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:03:36 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_sleep(t_philo *philo)
 	return (ft_usleep(philo->data->time_to_sleep, philo->data));
 }
 
-int	safe_lock(t_philo *philo, pthread_mutex_t *mutex)
+static int	safe_lock(t_philo *philo, pthread_mutex_t *mutex)
 {
 	pthread_mutex_lock(&philo->data->flag_mutex);
 	if (philo->data->flag_stop == 1)
@@ -31,7 +31,7 @@ int	safe_lock(t_philo *philo, pthread_mutex_t *mutex)
 	return (1);
 }
 
-int	take_forks(t_philo *philo)
+static int	take_forks(t_philo *philo)
 {
 	if (philo->id % 2)
 	{

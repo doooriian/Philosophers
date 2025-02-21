@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/19 16:38:10 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 14:58:59 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,34 @@ static int	ft_init_input(int argc, char **argv, t_data *data)
 	return (1);
 }
 
+static int	init_mutex_tab(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
+	if (!data->fork_mutex)
+	{
+		printf("fork_mutex malloc failed\n");
+		return (0);
+	}
+	while (i < data->nb_of_philo)
+	{
+		if (pthread_mutex_init(&data->fork_mutex[i], NULL))
+		{
+			while (--i >= 0)
+			{
+				pthread_mutex_destroy(&data->fork_mutex[i]);
+			}
+			free(data->fork_mutex);
+			data->fork_mutex = NULL;
+			return (ft_free_data(data, 1));
+		}
+		i++;
+	}
+	return (1);
+}
+
 static int	ft_init_philos(t_data *data, t_philo **philos)
 {
 	size_t	i;
@@ -58,34 +86,6 @@ static int	ft_init_philos(t_data *data, t_philo **philos)
 		{
 			ft_free_data(data, 1);
 			return (ft_free_philos(philos, i));
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	init_mutex_tab(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
-	if (!data->fork_mutex)
-	{
-		printf("fork_mutex malloc failed\n");
-		return (0);
-	}
-	while (i < data->nb_of_philo)
-	{
-		if (pthread_mutex_init(&data->fork_mutex[i], NULL))
-		{
-			while (--i >= 0)
-			{
-				pthread_mutex_destroy(&data->fork_mutex[i]);
-			}
-			free(data->fork_mutex);
-			data->fork_mutex = NULL;
-			return (ft_free_data(data, 1));
 		}
 		i++;
 	}
@@ -142,6 +142,8 @@ int	ft_init(int argc, char **argv, t_data *data, t_philo **philos)
 		return (0);
 	if (!ft_init_philos(data, philos))
 		return (0);
+	if (data->nb_of_philo == 1)
+		return (ft_init_one_philo(data, philos));
 	if (!ft_init_threads(data, philos))
 		return (0);
 	return (1);

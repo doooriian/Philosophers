@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 19:18:04 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:04:03 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,31 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 }	t_philo;
 
-long long	get_time(void);
-void		*routine(void *arg);
-int			ft_atoi_p(char *str);
-int			ft_eat(t_philo *philo);
-int			check_syntax(char *str);
-int			ft_sleep(t_philo *philo);
+//	init.c
+int			ft_init(int argc, char **argv, t_data *input, t_philo **philos);
+
+// monitor.c
+void		ft_monitor(t_philo *philos);
+
+// routine.c
 int 		check_flags(t_philo *philo);
-int			take_forks(t_philo	*philos);
-int			ft_usleep(int sleeping_time, t_data *data);
 void		print_messages(t_philo *philo, char *message);
+void		*routine(void *arg);
+void 		*routine_one_philo(void *arg);
+
+// time.c
+long long	get_time(void);
+int			ft_usleep(int sleeping_time, t_data *data);
+
+// utils_routine.c
+int			ft_sleep(t_philo *philo);
+int			ft_eat(t_philo *philo);
+
+// utils.c
+int			check_syntax(char *str);
+int			ft_atoi_p(char *str);
 int			ft_free_data(t_data *data, bool destroy_flag);
 int			ft_free_philos(t_philo **philos, size_t index);
-int			ft_init(int argc, char **argv, t_data *input, t_philo **philos);
+int			ft_init_one_philo(t_data *data, t_philo **philos);
 
 #endif

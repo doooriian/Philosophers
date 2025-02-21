@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:50:07 by doley             #+#    #+#             */
-/*   Updated: 2025/02/20 19:51:01 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:02:30 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void print_messages(t_philo *philo, char *message)
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
-int enough_eaten(t_philo *philo)
+static int enough_eaten(t_philo *philo)
 {
 	if (philo->data->nb_of_meals == 0)
 		return (0);
@@ -90,5 +90,24 @@ void *routine(void *arg)
 			break;
 		usleep(100);
 	}
+	return (NULL);
+}
+
+void *routine_one_philo(void *arg)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)arg;
+	pthread_mutex_lock(philo->right_fork);
+	print_messages(philo, "has taken a fork\n");
+	while (1)
+	{
+		pthread_mutex_lock(&philo->data->flag_mutex);
+		if (philo->data->flag_stop == 1)
+			break;
+		pthread_mutex_unlock(&philo->data->flag_mutex);
+	}
+	pthread_mutex_unlock(&philo->data->flag_mutex);
+	pthread_mutex_unlock(philo->right_fork);
 	return (NULL);
 }
