@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:50:07 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 16:44:25 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 16:46:49 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	print_messages(t_philo *philo, char *message)
 	long long		time;
 
 	pthread_mutex_lock(&philo->data->print_mutex);
-    if (philo->data->someone_died)
-    {
-        pthread_mutex_unlock(&philo->data->print_mutex);
-        return;
-    }
+	if (philo->data->someone_died)
+	{
+		pthread_mutex_unlock(&philo->data->print_mutex);
+		return ;
+	}
 	pthread_mutex_unlock(&philo->data->print_mutex);
 	time = get_time() - philo->data->start_time;
 	if (time == -1)
