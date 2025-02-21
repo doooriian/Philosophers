@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:22:48 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 16:34:37 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 	int				time_to_think;
 	int				nb_of_meals;
 	long long		start_time;
+	bool			someone_died;
 	bool			flag_stop;
 	bool			flag_start;
 	pthread_mutex_t	flag_mutex;

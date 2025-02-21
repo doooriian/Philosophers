@@ -6,13 +6,13 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:29:27 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:16:48 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 16:30:47 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-static bool	is_dead(t_philo philo)
+static bool	is_dead(t_philo *philo)
 {
 	long long	interval;
 	long long	current_time;
@@ -20,14 +20,14 @@ static bool	is_dead(t_philo philo)
 	current_time = get_time();
 	if (current_time == -1)
 		return (1);
-	pthread_mutex_lock(&philo.mutex_meals);
-	interval = current_time - philo.last_meal;
-	if (interval >= (long long)philo.data->time_to_die)
+	pthread_mutex_lock(&(*philo).mutex_meals);
+	interval = current_time - (*philo).last_meal;
+	if (interval >= (long long)(*philo).data->time_to_die)
 	{
-		pthread_mutex_unlock(&philo.mutex_meals);
+		pthread_mutex_unlock(&(*philo).mutex_meals);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo.mutex_meals);
+	pthread_mutex_unlock(&(*philo).mutex_meals);
 	return (0);
 }
 
@@ -67,11 +67,11 @@ void	ft_monitor(t_philo *philos)
 		usleep(10);
 		while (i < (size_t)philos->data->nb_of_philo)
 		{
-			if (is_dead(philos[i]))
+			if (is_dead(&philos[i]))
 			{
 				pthread_mutex_lock(&philos->data->flag_mutex);
 				philos->data->flag_stop = 1;
-				print_messages(&philos[i], "is dead\n");
+				print_messages(&philos[i], "died\n");
 				pthread_mutex_unlock(&philos->data->flag_mutex);
 				return ;
 			}

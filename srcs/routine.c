@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:50:07 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:25:14 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 16:44:25 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,15 @@ int	check_flags(t_philo *philo)
 
 void	print_messages(t_philo *philo, char *message)
 {
-	static bool		dead = 0;
 	long long		time;
 
-	if (dead)
-		return ;
+	pthread_mutex_lock(&philo->data->print_mutex);
+    if (philo->data->someone_died)
+    {
+        pthread_mutex_unlock(&philo->data->print_mutex);
+        return;
+    }
+	pthread_mutex_unlock(&philo->data->print_mutex);
 	time = get_time() - philo->data->start_time;
 	if (time == -1)
 	{
@@ -49,8 +53,8 @@ void	print_messages(t_philo *philo, char *message)
 	}
 	pthread_mutex_lock(&philo->data->print_mutex);
 	printf("%lld %d %s", time, philo->id, message);
-	if (strncmp("is dead", message, 7) == 0)
-		dead = 1;
+	if (message[0] == 'd')
+		philo->data->someone_died = 1;
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
@@ -106,6 +110,7 @@ void	*routine_one(void *arg)
 		if (philo->data->flag_stop == 1)
 			break ;
 		pthread_mutex_unlock(&philo->data->flag_mutex);
+		usleep(100);
 	}
 	pthread_mutex_unlock(&philo->data->flag_mutex);
 	pthread_mutex_unlock(philo->right_fork);
