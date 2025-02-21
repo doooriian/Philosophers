@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:26:32 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:03:36 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:17:15 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_eat(t_philo *philo)
 	if (!take_forks(philo))
 		return (0);
 	print_messages(philo, "is eating\n");
-    if (!ft_usleep(philo->data->time_to_eat, philo->data))
+	if (!ft_usleep(philo->data->time_to_eat, philo->data))
 	{
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
@@ -69,9 +69,9 @@ int	ft_eat(t_philo *philo)
 	}
 	pthread_mutex_lock(&philo->mutex_meals);
 	philo->meals_eaten++;
-    philo->last_meal = get_time();
-    pthread_mutex_unlock(&philo->mutex_meals);
+	philo->last_meal = get_time();
+	pthread_mutex_unlock(&philo->mutex_meals);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-    return (1);
+	return (1);
 }

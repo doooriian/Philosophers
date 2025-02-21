@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:56:14 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:11:47 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:20:46 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_free_philos(t_philo **philos, size_t index)
 
 int	ft_init_one_philo(t_data *data, t_philo **philos)
 {
-	if (pthread_create(&(*philos)[0].thread, NULL, &routine_one_philo, &(*philos)[0]))
+	if (pthread_create(&(*philos)[0].thread, NULL, &routine_one, &(*philos)[0]))
 	{
 		ft_free_philos(philos, (size_t)data->nb_of_philo);
 		ft_free_data(data, 1);

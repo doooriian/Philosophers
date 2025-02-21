@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:04:03 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:22:48 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				time_to_think;
 	int				nb_of_meals;
 	long long		start_time;
 	bool			flag_stop;
@@ -55,10 +56,10 @@ int			ft_init(int argc, char **argv, t_data *input, t_philo **philos);
 void		ft_monitor(t_philo *philos);
 
 // routine.c
-int 		check_flags(t_philo *philo);
+int			check_flags(t_philo *philo);
 void		print_messages(t_philo *philo, char *message);
 void		*routine(void *arg);
-void 		*routine_one_philo(void *arg);
+void		*routine_one(void *arg);
 
 // time.c
 long long	get_time(void);

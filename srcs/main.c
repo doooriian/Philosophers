@@ -6,15 +6,15 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:24:40 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:13:32 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:17:51 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void ft_join_all(t_philo *philos)
+static void	ft_join_all(t_philo *philos)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < (size_t)philos->data->nb_of_philo)
@@ -24,10 +24,10 @@ void ft_join_all(t_philo *philos)
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data data;
-	t_philo *philos;
+	t_data	data;
+	t_philo	*philos;
 
 	if (argc != 5 && argc != 6)
 	{

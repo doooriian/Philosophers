@@ -6,17 +6,16 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 14:29:27 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 14:56:40 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:16:48 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-
-static bool is_dead(t_philo philo)
+static bool	is_dead(t_philo philo)
 {
-	long long interval;
-	long long current_time;
+	long long	interval;
+	long long	current_time;
 
 	current_time = get_time();
 	if (current_time == -1)
@@ -56,7 +55,7 @@ static int	check_everybody_ate(t_philo *philos)
 void	ft_monitor(t_philo *philos)
 {
 	size_t	i;
-	bool 	local_stop;
+	bool	local_stop;
 
 	i = 0;
 	pthread_mutex_lock(&philos->data->flag_mutex);

@@ -6,16 +6,16 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:50:07 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:02:30 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:25:14 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int check_flags(t_philo *philo)
+int	check_flags(t_philo *philo)
 {
-	bool local_flag_stop;
-	bool local_flag_start;
+	bool	local_flag_stop;
+	bool	local_flag_start;
 
 	local_flag_stop = 0;
 	local_flag_start = 0;
@@ -32,10 +32,10 @@ int check_flags(t_philo *philo)
 	return (1);
 }
 
-void print_messages(t_philo *philo, char *message)
+void	print_messages(t_philo *philo, char *message)
 {
 	static bool		dead = 0;
-	long long 	time;
+	long long		time;
 
 	if (dead)
 		return ;
@@ -54,7 +54,7 @@ void print_messages(t_philo *philo, char *message)
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
 
-static int enough_eaten(t_philo *philo)
+static int	enough_eaten(t_philo *philo)
 {
 	if (philo->data->nb_of_meals == 0)
 		return (0);
@@ -68,9 +68,9 @@ static int enough_eaten(t_philo *philo)
 	return (1);
 }
 
-void *routine(void *arg)
+void	*routine(void *arg)
 {
-	t_philo *philo;
+	t_philo		*philo;
 
 	philo = (t_philo *)arg;
 	if (!check_flags(philo))
@@ -80,22 +80,22 @@ void *routine(void *arg)
 	while (1)
 	{
 		if (!ft_eat(philo))
-			break;
+			break ;
 		if (!ft_sleep(philo))
-			break;
+			break ;
 		print_messages(philo, "is thinking\n");
-		if (philo->data->nb_of_philo % 2 && ((2 * philo->data->time_to_eat - philo->data->time_to_sleep) > 0))
-			usleep((2 * philo->data->time_to_eat - philo->data->time_to_sleep) * 0.8 * 1000);
+		if (philo->data->nb_of_philo % 2 && (philo->data->time_to_think > 0))
+			usleep(philo->data->time_to_think * 0.8 * 1000);
 		if (enough_eaten(philo))
-			break;
+			break ;
 		usleep(100);
 	}
 	return (NULL);
 }
 
-void *routine_one_philo(void *arg)
+void	*routine_one(void *arg)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(philo->right_fork);
@@ -104,7 +104,7 @@ void *routine_one_philo(void *arg)
 	{
 		pthread_mutex_lock(&philo->data->flag_mutex);
 		if (philo->data->flag_stop == 1)
-			break;
+			break ;
 		pthread_mutex_unlock(&philo->data->flag_mutex);
 	}
 	pthread_mutex_unlock(&philo->data->flag_mutex);

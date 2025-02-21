@@ -6,7 +6,7 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:07:53 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 15:14:01 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/21 15:23:32 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static int	ft_init_input(int argc, char **argv, t_data *data)
 	data->time_to_die = ft_atoi_p(argv[2]);
 	data->time_to_eat = ft_atoi_p(argv[3]);
 	data->time_to_sleep = ft_atoi_p(argv[4]);
+	data->time_to_think = 2 * data->time_to_eat - data->time_to_sleep;
 	if (argc == 6)
 		data->nb_of_meals = ft_atoi_p(argv[5]);
 	if ((data->nb_of_philo == 0 || data->time_to_die == 0
-		|| data->time_to_eat == 0 || data->time_to_sleep == 0)
+			|| data->time_to_eat == 0 || data->time_to_sleep == 0)
 		|| (argc == 6 && data->nb_of_meals == 0))
 	{
 		printf("wrong input\n");
