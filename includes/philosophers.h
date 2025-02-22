@@ -6,20 +6,20 @@
 /*   By: doley <doley@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:26:41 by doley             #+#    #+#             */
-/*   Updated: 2025/02/21 16:34:37 by doley            ###   ########.fr       */
+/*   Updated: 2025/02/22 15:05:35 by doley            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <stdio.h>     // printf
-# include <string.h>    // memset
-# include <stdlib.h>    // malloc, free
-# include <unistd.h>    // write, usleep
-# include <pthread.h>   // thread related
-# include <stdbool.h>	// bool
-# include <sys/time.h>  // gettimeofday
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdbool.h>
+# include <sys/time.h>
 
 typedef struct s_data
 {
