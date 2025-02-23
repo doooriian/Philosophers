@@ -71,13 +71,13 @@ Run the executable with the required arguments. The program accepts parameters s
 **Example usage:**
 
 ```bash
-./philosophers 5 800 200 200
+./philo 5 800 200 200
 ```
 
 **Example with a meal limit:**
 ```bash
 
-./philosophers 5 800 200 200 7
+./philo 5 800 200 200 7
 ```
 
 ## 🧪 Testing
