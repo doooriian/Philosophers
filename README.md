@@ -105,7 +105,7 @@ Additional custom scripts were used to automate the testing and verify the expec
 Here’s my score for the Philosophers project:
 
 <p align="center">
-  <img src="https://github.com/doooriian/42-Badges/blob/main/badges/100Grade.png" alt="Push_swap Grade">
+  <img src="https://github.com/doooriian/42-Badges/blob/main/badges/100Grade.png" alt="Philosophers Grade">
 </p>
 
 ---
