@@ -95,7 +95,7 @@ Additional custom scripts were used to automate the testing and verify the expec
 
 - **[Philosophers 42 Guide — "The Dining Philosophers Problem"](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)**  
   A comprehensive guide on implementing the solution.
-- **[YouTube Video 1](https://youtu.be/VSkvwzqo-Pk?si=SN9AQYndsZkL5mGd)**  
+- **[YouTube Video](https://youtu.be/VSkvwzqo-Pk?si=SN9AQYndsZkL5mGd)**  
   Detailed explanation and visual breakdown of the problem.
 - **[YouTube Playlist](https://youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&si=McfwBXrZSandyjNb)**  
   A series of tutorials covering various aspects of the Dining Philosophers Problem and concurrent programming.
