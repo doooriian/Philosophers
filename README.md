@@ -93,11 +93,11 @@ Additional custom scripts were used to automate the testing and verify the expec
 
 ## 📚 Resources
 
-- **Philosophers 42 Guide — "The Dining Philosophers Problem"**  
+- **[Philosophers 42 Guide — "The Dining Philosophers Problem"](https://github.com/42School/philosophers)**  
   A comprehensive guide on implementing the solution.
-- **YouTube Video 1**  
+- **[YouTube Video 1](https://www.youtube.com/watch?v=example_video)**  
   Detailed explanation and visual breakdown of the problem.
-- **YouTube Playlist**  
+- **[YouTube Playlist](https://www.youtube.com/playlist?list=example_playlist)**  
   A series of tutorials covering various aspects of the Dining Philosophers Problem and concurrent programming.
 
 ## 📬 Contact
