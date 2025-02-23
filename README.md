@@ -100,6 +100,16 @@ Additional custom scripts were used to automate the testing and verify the expec
 - **[YouTube Playlist](https://youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&si=McfwBXrZSandyjNb)**  
   A series of tutorials covering various aspects of the Dining Philosophers Problem and concurrent programming.
 
+## ✅ Results
+
+Here’s my score for the Philosophers project:
+
+<p align="center">
+  <img src="https://github.com/doooriian/42-Badges/blob/main/badges/100Grade.png" alt="Push_swap Grade">
+</p>
+
+---
+
 ## 📬 Contact
 
 Feel free to reach out or contribute to this project on [GitHub](https://github.com/doooriian)!
