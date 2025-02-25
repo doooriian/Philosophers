@@ -39,7 +39,7 @@ static int	take_forks(t_philo *philo)
 			return (0);
 		print_messages(philo, "has taken a fork\n");
 		if (!safe_lock(philo, philo->right_fork))
-		{	
+		{
 			pthread_mutex_unlock(philo->left_fork);
 			return (0);
 		}
@@ -51,7 +51,7 @@ static int	take_forks(t_philo *philo)
 			return (0);
 		print_messages(philo, "has taken a fork\n");
 		if (!safe_lock(philo, philo->left_fork))
-		{	
+		{
 			pthread_mutex_unlock(philo->right_fork);
 			return (0);
 		}
