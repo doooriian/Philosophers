@@ -1,28 +1,18 @@
-<br />
-<p align="center">
-  <a href="https://42.fr/">
-    <img src="https://github.com/doooriian/42-Badges/blob/main/42_Logo.png" alt="42 Logo" width="250" height="250">
-  </a>
+<div align="center">
 
-  <h1 align="center">Philosophers</h1>
+<a href="https://42.fr/"><img src="https://raw.githubusercontent.com/doooriian/42-Badges/main/badges/philosopherse.png" width="125" alt="Philosophers 42 project badge" /></a>
 
-  <p align="center">
-    A synchronization and concurrency challenge from 42 School based on the Dining Philosophers Problem.
-    <br /><br />
-    <img src="https://github.com/doooriian/42-Badges/blob/main/badges/philosopherse.png" alt="Philosophers Badge" width="150">
-  </p>
-</p>
+# Philosophers
 
-<p align="center">
-  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/doooriian/Philosophers?color=1A237E" />
-  <img alt="Code language count" src="https://img.shields.io/github/languages/count/doooriian/Philosophers?color=00BCD4" />
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/doooriian/Philosophers?color=7B1FA2" />
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/doooriian/Philosophers?color=D32F2F" />
-</p>
+**Threads and synchronization in C**
+
+<img src="https://img.shields.io/badge/42%20School-Project-D97706?style=flat-square" alt="42 School project" />
+
+</div>
 
 ---
 
-## ✨ Overview
+## 🔎 Overview
 
 **Philosophers** is an individual project at 42 School that challenges students to solve the classic Dining Philosophers Problem. The task involves creating a simulation where multiple philosophers, seated at a circular table, alternate between thinking, eating, and sleeping, while sharing limited resources (forks). The main challenge is to ensure proper synchronization and avoid common pitfalls like deadlocks and starvation.
 
@@ -30,7 +20,7 @@ To implement a solution, I adhered to the specifications provided by the 42 proj
 
 ---
 
-## 📑 Key Features
+## ✨ Key Features
 
 - **Concurrent Simulation**: Each philosopher is modeled as a separate process or thread, demonstrating inter-process communication and synchronization.
 - **Deadlock Prevention**: Implements strategies to avoid deadlocks and resource contention.
@@ -42,7 +32,7 @@ To implement a solution, I adhered to the specifications provided by the 42 proj
 ## 🛠️ Technologies Used
 
 - **[C](https://devdocs.io/c/)** — Core programming language.
-- **[POSIX Threads](https://man7.org/linux/man-pages/man7/pthreads.7.html)** or **Processes** — For creating concurrent simulations.
+- **[POSIX Threads](https://man7.org/linux/man-pages/man7/pthreads.7.html)** and mutex synchronization — For creating concurrent simulations.
 - **Makefile** — Used for building and automating the project.
 
 ---
@@ -100,7 +90,7 @@ Additional custom scripts were used to automate the testing and verify the expec
 - **[YouTube Playlist](https://youtube.com/playlist?list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2&si=McfwBXrZSandyjNb)**  
   A series of tutorials covering various aspects of the Dining Philosophers Problem and concurrent programming.
 
-## ✅ Results
+## 🏅 Results
 
 Here’s my score for the Philosophers project:
 
