@@ -4,24 +4,16 @@
 
 # Philosophers
 
-**42 School · 🧵 Software engineering project**
+**42 School project · Threads and synchronization**
 
 <img src="https://img.shields.io/badge/42_Project-C%20%7C%20Concurrency-D97706?style=flat-square" alt="Philosophers technology" />
 <img src="https://img.shields.io/badge/Documentation-Project_Overview-334155?style=flat-square" alt="Project documentation" />
 
 </div>
 
----
-
-
----
-
 ## 🔎 Overview
 
 A concurrency simulation based on the dining philosophers problem, illustrating synchronization and shared resource management.
-
-
----
 
 ## ✨ Features
 
@@ -30,17 +22,11 @@ A concurrency simulation based on the dining philosophers problem, illustrating 
 - Monitor philosopher state and timeouts
 - Configure the simulation from command-line timing parameters
 
-
----
-
 ## 🧩 Technical approach
 
 The routine and monitor logic are separated. Timing and synchronization are important because incorrect access to shared state can cause races or deadlocks.
 
 > **Tech stack** · C · POSIX threads · Mutexes · Make.
-
-
----
 
 ## 🚀 Build and usage
 
@@ -57,15 +43,9 @@ An optional fifth argument sets the required number of meals per philosopher:
 ./philo 5 800 200 200 7
 ```
 
-
----
-
 ## 🧪 Verification
 
 Build in the documented environment, exercise normal scenarios and edge cases, and compare actual behaviour with the expected output. No automated CI test suite is included in this repository.
-
-
----
 
 ## ⚠️ Notes and limitations
 
