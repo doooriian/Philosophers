@@ -2,8 +2,6 @@
 
 > **42 School project** · C · Pthreads · Concurrency
 
-A concurrency simulation based on the dining philosophers problem, illustrating synchronization and shared resource management.
-
 ## Overview
 
 A concurrency simulation based on the dining philosophers problem, illustrating synchronization and shared resource management.
